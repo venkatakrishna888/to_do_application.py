@@ -7,26 +7,44 @@ while True:
     print("3. Delete Task")
     print("4. Exit")
 
-    choice = int(input("Enter choice: "))
+    # Safe input
+    try:
+        choice = int(input("Enter choice: "))
+    except:
+        print("Please enter a valid number")
+        continue
 
+    # Add Task
     if choice == 1:
         task = input("Enter task: ")
         tasks.append(task)
         print("Task added!")
 
+    # View Tasks
     elif choice == 2:
-        print("\nYour Tasks:")
-        for i, task in enumerate(tasks):
-            print(i + 1, ".", task)
-
-    elif choice == 3:
-        num = int(input("Enter task number to delete: "))
-        if 0 < num <= len(tasks):
-            tasks.pop(num - 1)
-            print("Task deleted!")
+        if not tasks:
+            print("No tasks available")
         else:
-            print("Invalid number")
+            print("\nYour Tasks:")
+            for i, task in enumerate(tasks):
+                print(i + 1, ".", task)
 
+    # Delete Task
+    elif choice == 3:
+        if not tasks:
+            print("No tasks to delete")
+        else:
+            try:
+                num = int(input("Enter task number to delete: "))
+                if 0 < num <= len(tasks):
+                    removed = tasks.pop(num - 1)
+                    print(f"Task '{removed}' deleted!")
+                else:
+                    print("Invalid number")
+            except:
+                print("Please enter a valid number")
+
+    # Exit
     elif choice == 4:
         print("Exiting...")
         break
